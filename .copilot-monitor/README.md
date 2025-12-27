@@ -38,6 +38,7 @@ cat .copilot-monitor/monitor-status.md
 ### Monitoring Output
 
 The monitoring script provides:
+
 - Current repository state (branch, modified files, last commit)
 - Detection of parallel Copilot processes
 - Recent file modification tracking
@@ -46,6 +47,7 @@ The monitoring script provides:
 ## Test Scenario
 
 This monitoring agent is part of a test to verify that multiple Copilot agents can:
+
 - Execute in parallel without conflicts
 - Maintain independent state
 - Coordinate changes safely
@@ -56,6 +58,7 @@ This monitoring agent is part of a test to verify that multiple Copilot agents c
 **Role**: Monitor Agent
 
 **Responsibilities**:
+
 - Observe repository state changes
 - Track other agent activities
 - Log monitoring events
@@ -64,6 +67,7 @@ This monitoring agent is part of a test to verify that multiple Copilot agents c
 ## Integration
 
 The monitoring system is designed to be:
+
 - **Non-intrusive**: Does not interfere with other agent operations
 - **Lightweight**: Minimal resource overhead
 - **Informative**: Provides clear visibility into parallel execution
