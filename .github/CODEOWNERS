@@ -1,13 +1,17 @@
 # Set code owners for critical areas
 
-# All code: require review from @hummbl-dev (replace with actual GitHub usernames as needed)
+<!-- All code: require review from @hummbl-dev (replace with actual GitHub usernames as needed) -->
+
 *       @hummbl-dev
 
-# Infrastructure code
+## Infrastructure code
+
 infra/  @hummbl-dev
 
-# Policies
+## Policies
+
 policies/  @hummbl-dev
 
-# GitHub workflows
+## GitHub workflows
+
 .github/workflows/  @hummbl-dev
