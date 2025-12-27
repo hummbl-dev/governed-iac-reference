@@ -26,4 +26,3 @@ This template is for public discussions about:
 - General security improvements (non-sensitive)
 
 Please describe the security topic you'd like to discuss:
-
