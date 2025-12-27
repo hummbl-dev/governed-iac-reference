@@ -1,0 +1,24 @@
+# CODEOWNERS - Defines code review ownership for governed IaC repository
+#
+# These owners will be automatically requested for review when someone opens a pull request.
+# Documentation: https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+
+# Default owner for everything in the repo
+*       @hummbl-dev
+
+# Infrastructure code requires security-focused review
+/infra/**                    @hummbl-dev
+*.tf                         @hummbl-dev
+*.tfvars                     @hummbl-dev
+
+# Policy and governance documents require governance team review
+/policies/**                 @hummbl-dev
+GOVERNANCE.md               @hummbl-dev
+SECURITY.md                 @hummbl-dev
+
+# GitHub Actions workflows require security review
+/.github/workflows/**        @hummbl-dev
+
+# Documentation changes
+*.md                         @hummbl-dev
+ARCHITECTURE.md             @hummbl-dev
