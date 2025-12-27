@@ -14,5 +14,5 @@
   "files.trimTrailingWhitespace": true,
   "files.insertFinalNewline": true,
   "terraform.languageServer.enable": true,
-  "terraform.experimentalFeatures.validateOnSave": false
-}
+  "terraform.experimentalFeatures.validateOnSave": true,
+  "terraform.validation.enableEnhancedValidation": true}
