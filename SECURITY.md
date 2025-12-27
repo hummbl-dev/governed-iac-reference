@@ -23,7 +23,7 @@ Instead, report security vulnerabilities by:
    - Fill out the advisory form
 
 2. **Direct Contact**
-   - Email: security@hummbl.dev
+   - Email: <reuben@hummbl.io>
    - Subject: "[SECURITY] Governed IaC Reference Vulnerability"
 
 ### What to Include
@@ -103,7 +103,7 @@ Out of scope:
 
 For security-related questions or concerns:
 
-- Security issues: security@hummbl.dev
+- Security issues: <reuben@hummbl.io>
 - General questions: Open a discussion in GitHub Discussions
 
 Thank you for helping keep this repository secure!
