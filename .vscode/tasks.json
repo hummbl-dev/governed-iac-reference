@@ -1,0 +1,26 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "lint:markdown",
+      "type": "shell",
+      "command": "markdownlint '**/*.md'",
+      "problemMatcher": [],
+      "group": "verification"
+    },
+    {
+      "label": "git:status",
+      "type": "shell",
+      "command": "git status",
+      "problemMatcher": [],
+      "group": "verification"
+    },
+    {
+      "label": "git:log",
+      "type": "shell",
+      "command": "git log --oneline --decorate -10",
+      "problemMatcher": [],
+      "group": "verification"
+    }
+  ]
+}
