@@ -62,7 +62,24 @@ they are invariants the architecture is designed to hold.
 - **Explicit non-goals documented**  
   Anything out of scope is named and intentionally excluded.
 
-## Repository Structure
+## Repository Structure (Guided Tour)
+This repository is organized to reflect how governed infrastructure is actually operated.
+
+```
+repo-root/
+├── .github/
+│   └── workflows/        # CI gates: linting, planning, policy checks, controlled apply
+├── infra/
+│   ├── modules/          # Reusable Terraform modules (no environment coupling)
+│   └── envs/             # Environment wiring: dev / staging / prod
+├── policies/             # Policy-as-code (OPA / Checkov)
+├── scripts/              # Promotion, verification, and safety tooling
+├── docs/                 # Deep dives and supporting architecture material
+├── ARCHITECTURE.md       # Canonical system architecture (authoritative)
+└── README.md             # Entry point and narrative overview
+```
+
+Each directory exists to enforce separation of concerns between **definition**, **validation**, and **execution**.
 
 ## How to Use This Repository
 
