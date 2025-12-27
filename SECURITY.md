@@ -4,7 +4,7 @@
 
 If you discover a security vulnerability in this repository, please report it as soon as possible:
 
-- Email: [security@hummbl.io](mailto:security@hummbl.io)
+- Email: [reuben@hummbl.io](mailto:reuben@hummbl.io)
 - Or open a confidential security advisory via GitHub (recommended)
 
 Please include as much detail as possible to help us reproduce and address the issue quickly.
