@@ -4,6 +4,15 @@
 **Status:** COMPLETE ✅  
 **Overall Assessment:** STRONG (85/100)
 
+## Scope of v0.1.0
+
+**Important:** This release focuses on documentation and governance foundations. The infrastructure and policy scores are intentionally low because:
+
+- v0.1.0 establishes the **governance framework** and **documentation baseline**
+- Infrastructure code and policy implementations are planned for v0.2.0 and beyond
+- Low infrastructure/policy scores reflect deliberate deferral, not deficiencies
+- This is a reference repository for governed IaC practices, not a production system
+
 ---
 
 ## Audit Deliverables
