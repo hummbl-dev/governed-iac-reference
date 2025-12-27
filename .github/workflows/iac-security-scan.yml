@@ -6,6 +6,9 @@ on:
   push:
     branches: [ main ]
 
+permissions:
+  contents: read
+
 jobs:
   terraform-lint:
     name: Terraform Lint
@@ -26,20 +29,26 @@ jobs:
       - uses: actions/checkout@v4
       
       - name: Run Checkov
-        uses: bridgecrewio/checkov-action@master
+        uses: bridgecrewio/checkov-action@v12.2778.0
         with:
           directory: ./
           framework: terraform
           soft_fail: false
           output_format: cli
 
-  tfsec-scan:
-    name: tfsec Security Scan
+  trivy-scan:
+    name: Trivy IaC Security Scan
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       
-      - name: Run tfsec
-        uses: aquasecurity/tfsec-action@v1.0.3
+      - name: Run Trivy IaC scan
+        uses: aquasecurity/trivy-action@v0.24.0
         with:
-          soft_fail: false
+          scan-type: 'config'
+          scanners: 'misconfig'
+          scan-ref: '.'
+          exit-code: '1'
+          format: 'table'
+          hide-progress: true
+
