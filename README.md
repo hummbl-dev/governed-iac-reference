@@ -37,6 +37,31 @@ Specifically, this reference system exists to:
 
 ## Core Principles
 
+## Design Constraints (At a Glance)
+This system is intentionally constrained. These constraints are not limitations to be removed;
+they are invariants the architecture is designed to hold.
+
+- **No local Docker dependency**  
+  All workflows must execute without requiring a local Docker daemon.
+
+- **Deterministic environments**  
+  Dev, staging, and prod are structurally identical; differences are data, not topology.
+
+- **Plan-before-apply enforcement**  
+  All infrastructure changes require a reviewed, recorded plan prior to application.
+
+- **Policy-as-code required**  
+  Security, compliance, and guardrails are enforced via automated policy checks.
+
+- **CI is the control plane**  
+  Human interaction is mediated through version control and CI gates, not imperative access.
+
+- **Reversibility over speed**  
+  Every change must be designed to be safely rolled back.
+
+- **Explicit non-goals documented**  
+  Anything out of scope is named and intentionally excluded.
+
 ## Repository Structure
 
 ## How to Use This Repository
