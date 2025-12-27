@@ -1,5 +1,10 @@
 # Governed Infrastructure-as-Code Reference System
 
+[![CI Status](https://github.com/hummbl-dev/governed-iac-reference/actions/workflows/iac-security-scan.yml/badge.svg)](https://github.com/hummbl-dev/governed-iac-reference/actions/workflows/iac-security-scan.yml)
+[![Markdownlint](https://github.com/hummbl-dev/governed-iac-reference/actions/workflows/markdownlint.yml/badge.svg)](https://github.com/hummbl-dev/governed-iac-reference/actions/workflows/markdownlint.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Release](https://img.shields.io/github/v/release/hummbl-dev/governed-iac-reference)](https://github.com/hummbl-dev/governed-iac-reference/releases)
+
 ## What This Is
 
 This repository is a reference implementation of a governed Infrastructure-as-Code (IaC) system.
@@ -82,6 +87,39 @@ Each directory exists to enforce separation of concerns between **definition**, 
 
 ## How to Use This Repository
 
+This repository is designed to be **studied**, not deployed directly. It exists to demonstrate patterns, not to run production workloads.
+
+**To explore this repository:**
+
+1. **Read `ARCHITECTURE.md` first** – This document explains the canonical system design and trade-offs.
+2. **Review `.github/workflows/`** – See how governance is enforced via CI gates.
+3. **Examine `policies/`** – Understand how policy-as-code validates infrastructure changes.
+4. **Study `infra/modules/`** – See how reusable Terraform modules are structured without environment coupling.
+5. **Follow the repository evolution** – Use Git history to understand the progression from initial setup to full governance.
+
 ## Versioning
 
+This repository follows [Semantic Versioning](https://semver.org/) (`MAJOR.MINOR.PATCH`):
+
+- **MAJOR**: Breaking changes to governance model, workflow structure, or architectural invariants
+- **MINOR**: New governance features, additional policy checks, or non-breaking workflow improvements
+- **PATCH**: Documentation fixes, CI tuning, or clarifications
+
+See the [CHANGELOG.md](CHANGELOG.md) for a complete version history.
+
 ## Audience
+
+This repository is intended for:
+
+- **Platform engineers** building governed infrastructure systems
+- **DevOps architects** designing compliance-first CI/CD workflows
+- **Security teams** enforcing policy-as-code in cloud environments
+- **Engineering leaders** evaluating governance models for regulated industries
+- **Infrastructure auditors** reviewing controlled change management practices
+
+This is **not** for teams seeking:
+
+- Rapid prototyping environments
+- Local development with Docker Compose
+- Quick-start Terraform tutorials
+- Opinionated "best practices" checklists

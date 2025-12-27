@@ -21,6 +21,10 @@
 10. [Versioning and Evolution](#10-versioning-and-evolution)
 11. [Audience](#11-audience)
 12. [Canonical Statement](#12-canonical-statement)
+13. [Repository Structure](#13-repository-structure)
+14. [Workflow Diagrams](#14-workflow-diagrams)
+15. [CI/CD Pipeline Detail](#15-cicd-pipeline-detail)
+16. [Design Decisions & Trade-offs](#16-design-decisions--trade-offs)
 
 ## 1. Purpose
 
@@ -227,5 +231,90 @@ It is not a tutorial for beginners.
 The core invariant of this system is:
 
 > No infrastructure change occurs without explicit human accountability, even when automation would be faster.
+
+## 13. Repository Structure
+
+```plaintext
+.
+├── .github/              # Workflows, templates, CODEOWNERS
+├── .vscode/              # Editor tasks and settings
+├── infra/                # Terraform modules and environments
+│   └── envs/             # Example: dev, staging, prod
+├── policies/             # Policy-as-code (OPA, Sentinel, etc.)
+├── scripts/              # Automation scripts
+├── ARCHITECTURE.md       # This document
+├── CHANGELOG.md
+├── CONTRIBUTING.md
+├── GOVERNANCE.md
+├── LICENSE
+├── README.md
+├── SECURITY.md
+└── VERSION
+```
+
+---
+
+## 14. Workflow Diagrams
+
+### Pull Request & CI/CD Flow
+
+```mermaid
+graph TD
+    A[Contributor Forks/Clones Repo] --> B[Creates Feature Branch]
+    B --> C[Commits & Pushes Changes]
+    C --> D[Opens Pull Request]
+    D --> E[CI/CD: Lint, Security, Policy]
+    E --> F{All Checks Pass?}
+    F -- No --> G[Fix Issues, Push Again]
+    F -- Yes --> H[CODEOWNERS Review]
+    H --> I[Merge to Main]
+```
+
+### Policy Enforcement Sequence
+
+```mermaid
+graph TD
+    A[PR Opened/Updated] --> B[Terraform Lint]
+    A --> C[Checkov Security Scan]
+    A --> D[Trivy Scan]
+    B & C & D --> E[Markdownlint]
+    E --> F{All Pass?}
+    F -- No --> G[Fail PR]
+    F -- Yes --> H[Allow Merge]
+```
+
+### Environment Promotion Pipeline
+
+```mermaid
+graph TD
+    A[Change Merged to Main] --> B[Plan in Dev]
+    B --> C[Apply in Dev]
+    C --> D[Promote to Staging (PR, Review)]
+    D --> E[Apply in Staging]
+    E --> F[Promote to Prod (PR, Review)]
+    F --> G[Apply in Prod]
+```
+
+---
+
+## 15. CI/CD Pipeline Detail
+
+- **Terraform Lint (TFLint):** Checks Terraform code for best practices and errors. Runs on every PR and push to main.
+- **Checkov:** Scans Terraform for security misconfigurations. Required to pass before merge.
+- **Trivy:** Scans for vulnerabilities and misconfigurations in IaC. Required to pass before merge.
+- **Markdownlint:** Ensures documentation consistency and hygiene. Required to pass before merge.
+
+**All four checks are required for every PR.**
+Branch protection rules enforce that no code can be merged without passing all checks.
+
+---
+
+## 16. Design Decisions & Trade-offs
+
+- **No Local Docker:** Prevents local-only success and ensures all execution is governed and auditable.
+- **CI as Control Plane:** All applies and policy checks run in CI, not on developer machines, to centralize authority and logging.
+- **Performance vs. Auditability:** The system favors traceability and reviewability over speed or convenience.
+- **Minimal Tooling:** Only essential tools are included to reduce attack surface and complexity.
+- **Policy as Preventive, Not Advisory:** Policies are enforced before execution, not after, to prevent invalid state transitions.
 
 **End of v1.0 Architecture.**
