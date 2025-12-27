@@ -277,6 +277,24 @@ All changes must include:
 
 ### 6.2 Change Validation
 
+#### Implementation Status
+
+**Note:** Some controls described in this section are planned for future implementation:
+
+- **Implemented in v0.1.0:**
+  - Manual code review processes
+  - Documentation requirements
+  - Branch protection rules
+  - Human approval gates
+
+- **Planned for v0.2.0+:**
+  - Automated OPA policy validation
+  - Custom Checkov policies
+  - Automated CI/CD workflows for policy enforcement
+  - Automated audit logging
+
+Until automated policy enforcement is implemented, validation relies on manual review processes and branch protection rules.
+
 All changes are validated through:
 
 1. **Automated Checks** (Required)
