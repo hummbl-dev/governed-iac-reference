@@ -100,7 +100,7 @@ scan-results/
 *.bak
 *.backup
 
-# Archive files (keep source)
+# Archive files - only ignore large generated artifacts; don't use archives as primary source format
 *.zip
 *.tar.gz
 *.tgz
