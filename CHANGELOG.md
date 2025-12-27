@@ -15,6 +15,7 @@ All notable changes to this project will be documented in this file.
 - IaC security scan workflows (TFLint, Checkov, Trivy)
 - CODEOWNERS and license
 - Documentation: architecture, infra/README, policies/README stub
+- Comprehensive repository audit with governance gap analysis and recommendations (see README-AUDIT.md and docs/AUDIT-2025-12-27-SUMMARY.md)
 
 ## [v0.2.0] - Upcoming
 
