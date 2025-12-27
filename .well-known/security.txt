@@ -1,0 +1,6 @@
+Contact: mailto:reuben@hummbl.io
+Expires: 2026-12-31T23:59:59.000Z
+Preferred-Languages: en
+Canonical: https://github.com/hummbl-dev/governed-iac-reference/.well-known/security.txt
+Policy: https://github.com/hummbl-dev/governed-iac-reference/blob/main/SECURITY.md
+Acknowledgments: https://github.com/hummbl-dev/governed-iac-reference/blob/main/CONTRIBUTING.md

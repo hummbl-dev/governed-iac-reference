@@ -13,6 +13,10 @@ GPG signing requirements documented in `SECURITY.md`.
 |-------|-------------|----------|
 | `gpg_private_key` | GPG private key for signing commits | Yes |
 | `gpg_passphrase` | Passphrase for the GPG private key | Yes |
+| Input             | Description                          | Required |
+|-------------------|--------------------------------------|----------|
+| `gpg_private_key` | GPG private key for signing commits  | Yes      |
+| `gpg_passphrase`  | Passphrase for the GPG private key   | Yes      |
 
 ## Usage
 
