@@ -6,6 +6,8 @@
 **Version Audited:** v0.1.0  
 **Overall Assessment:** **STRONG** (85/100)
 
+> **Scope Note:** v0.1.0 focuses on documentation and governance foundations. Infrastructure and policy implementations are intentionally deferred to v0.2.0+. Low scores in those areas reflect deliberate phasing, not deficiencies.
+
 ---
 
 ## Executive Summary
