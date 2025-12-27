@@ -126,9 +126,9 @@ This governance model ensures that every infrastructure change is:
 ### 3.2 Authority Boundaries
 
 | Environment | Propose | Approve | Execute |
-|------------|---------|---------|---------|
-| Dev        | All Contributors | Code Owners | CI Automated |
-| Staging    | All Contributors | Code Owners | CI Automated |
+| ---------- | ------- | ------- | ------- |
+| Dev | All Contributors | Code Owners | CI Automated |
+| Staging | All Contributors | Code Owners | CI Automated |
 | Production | All Contributors | Code Owners + 2nd Review | CI Automated |
 
 ---
@@ -354,7 +354,7 @@ Long-term deviations requiring policy updates
 
 **Level 2:** Repository Maintainer (@hummbl-dev) → Exception approvals, policy interpretation
 
-**Level 3:** Security Team (reuben@hummbl.io) → Security architecture review
+**Level 3:** Security Team (<reuben@hummbl.io>) → Security architecture review
 
 **Level 4:** Executive Stakeholder → Business impact decisions
 
@@ -372,7 +372,7 @@ Long-term deviations requiring policy updates
 ### 9.1 Pull Request Approval Matrix
 
 | Change Type | CI Checks | Code Owner | Second Review |
-|------------|-----------|------------|---------------|
+| ---------- | --------- | ---------- | ------------- |
 | Documentation | Required | 1 | No |
 | Dev Environment | Required | 1 | No |
 | Staging Environment | Required | 1 | Recommended |
@@ -478,7 +478,7 @@ Long-term deviations requiring policy updates
 ### Emergency Contacts
 
 - **Repository Maintainer:** @hummbl-dev
-- **Security Issues:** reuben@hummbl.io
+- **Security Issues:** <reuben@hummbl.io>
 - **General Questions:** GitHub Discussions
 
 ### Common Scenarios
