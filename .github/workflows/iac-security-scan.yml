@@ -1,0 +1,54 @@
+name: IaC Security Scan
+
+on:
+  pull_request:
+    branches: [ main ]
+  push:
+    branches: [ main ]
+
+permissions:
+  contents: read
+
+jobs:
+  terraform-lint:
+    name: Terraform Lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup TFLint
+        uses: terraform-linters/setup-tflint@v4
+        
+      - name: Run TFLint
+        run: tflint --recursive
+
+  checkov-scan:
+    name: Checkov Security Scan
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Run Checkov
+        uses: bridgecrewio/checkov-action@v12.2778.0
+        with:
+          directory: ./
+          framework: terraform
+          soft_fail: false
+          output_format: cli
+
+  trivy-scan:
+    name: Trivy IaC Security Scan
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Run Trivy IaC scan
+        uses: aquasecurity/trivy-action@0.33.1
+        with:
+          scan-type: 'config'
+          scanners: 'misconfig'
+          scan-ref: '.'
+          exit-code: '1'
+          format: 'table'
+          hide-progress: true
+

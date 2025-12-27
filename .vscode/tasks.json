@@ -1,0 +1,53 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "lint:markdown",
+      "type": "shell",
+      "command": "markdownlint '**/*.md'",
+      "problemMatcher": [],
+      "group": "verification"
+    },
+    {
+      "label": "git:status",
+      "type": "shell",
+      "command": "git status",
+      "problemMatcher": [],
+      "group": "verification"
+    },
+    {
+      "label": "git:log",
+      "type": "shell",
+      "command": "git log --oneline --decorate -10",
+      "problemMatcher": [],
+      "group": "verification"
+    },
+    {
+      "label": "security:tflint",
+      "type": "shell",
+      "command": "cd infra && tflint --recursive",
+      "problemMatcher": [],
+      "group": "test"
+    },
+    {
+      "label": "security:checkov",
+      "type": "shell",
+      "command": "checkov -d ./infra --framework terraform --soft-fail --output cli",
+      "problemMatcher": [],
+      "group": "test"
+    },
+    {
+      "label": "security:trivy",
+      "type": "shell",
+      "command": "trivy config --scan-type config --scanners misconfig --scan-ref . ./infra",
+      "problemMatcher": [],
+      "group": "test"
+    },
+    {
+      "label": "security:all",
+      "dependsOn": ["security:tflint", "security:checkov", "security:trivy"],
+      "problemMatcher": [],
+      "group": "test"
+    }
+  ]
+}

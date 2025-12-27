@@ -1,0 +1,18 @@
+{
+  "git.enableCommitSigning": true,
+  "git.confirmSync": true,
+  "git.autofetch": true,
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "DavidAnson.vscode-markdownlint",
+  "markdownlint.config": {
+    "MD013": false,
+    "MD033": false,
+    "MD041": true,
+    "MD022": true,
+    "MD032": true
+  },
+  "files.trimTrailingWhitespace": true,
+  "files.insertFinalNewline": true,
+  "terraform.languageServer.enable": true,
+  "terraform.experimentalFeatures.validateOnSave": true,
+  "terraform.validation.enableEnhancedValidation": true}
