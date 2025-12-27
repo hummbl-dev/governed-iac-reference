@@ -17,35 +17,36 @@ By participating in this project, you agree to maintain a respectful and inclusi
 
 ### Pull Request Process
 
-
 1. **Fork and Clone**
-   ```bash
-   git clone https://github.com/your-username/governed-iac-reference.git
-   cd governed-iac-reference
-   ```
 
+```bash
+git clone https://github.com/your-username/governed-iac-reference.git
+cd governed-iac-reference
+```
 
 2. **Create a Feature Branch**
-   ```bash
-   git checkout -b feat/your-feature-name
-   ```
+
+```bash
+git checkout -b feat/your-feature-name
+```
 
 3. **Make Your Changes**
-   - Follow the coding standards
-   - Run security scans locally
-   - Update documentation as needed
 
+- Follow the coding standards
+- Run security scans locally
+- Update documentation as needed
 
 4. **Commit with GPG Signing**
-   ```bash
-   git commit -S -m "type: description"
-   ```
 
+```bash
+git commit -S -m "type: description"
+```
 
 5. **Push and Create PR**
-   ```bash
-   git push origin feat/your-feature-name
-   ```
+
+```bash
+git push origin feat/your-feature-name
+```
 
 ### Commit Message Guidelines
 
