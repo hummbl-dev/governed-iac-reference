@@ -6,17 +6,29 @@ set -euo pipefail
 
 MONITOR_DIR=".copilot-monitor"
 STATUS_FILE="$MONITOR_DIR/monitor-status.md"
-TIMESTAMP=$(date -u +"%Y-%m-%dT%H:%M:%S.%3NZ")
 
 # Create monitor directory if it doesn't exist
 mkdir -p "$MONITOR_DIR"
+
+# Function to get current timestamp (portable across Unix systems)
+get_timestamp() {
+    date -u +"%Y-%m-%dT%H:%M:%SZ"
+}
 
 # Function to log monitoring events
 log_event() {
     local event="$1"
     local details="$2"
+    local timestamp
     
-    echo "| $TIMESTAMP | $event | $details |" >> "$STATUS_FILE"
+    timestamp=$(get_timestamp)
+    
+    # Ensure status file exists
+    if [ ! -f "$STATUS_FILE" ]; then
+        return 1
+    fi
+    
+    echo "| $timestamp | $event | $details |" >> "$STATUS_FILE"
 }
 
 # Function to check repository state
@@ -48,6 +60,9 @@ monitor_agents() {
 
 # Main monitoring function
 main() {
+    local current_timestamp
+    current_timestamp=$(get_timestamp)
+    
     echo "╔════════════════════════════════════════════════════════╗"
     echo "║     Copilot Agent Monitor - Parallel Session Test     ║"
     echo "╚════════════════════════════════════════════════════════╝"
@@ -57,7 +72,7 @@ main() {
     monitor_agents
     
     echo "=== Monitor Status ==="
-    echo "Monitoring active at: $TIMESTAMP"
+    echo "Monitoring active at: $current_timestamp"
     echo "Status file: $STATUS_FILE"
     echo ""
     
