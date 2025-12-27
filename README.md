@@ -19,6 +19,21 @@ This repository is **not**:
 - A replacement for organizational governance or decision-making
 
 ## Why This Exists
+Modern Infrastructure-as-Code systems fail less often due to tooling defects and more often due to
+governance collapse: unclear authority, mutable standards, undocumented exceptions, and
+non-reproducible decision paths. As systems scale, these failures become silent, systemic, and
+expensive to reverse.
+
+This repository exists to demonstrate a different approach: infrastructure that is constrained by
+explicit design limits, governed by verifiable rules, and structured to remain legible under
+organizational stress. The goal is not velocity. The goal is **durability under scrutiny**.
+
+Specifically, this reference system exists to:
+
+- Treat constraints (organizational, technical, and operational) as first-class design inputs
+- Encode governance assumptions directly into architecture and workflow
+- Favor auditability, determinism, and reversibility over convenience
+- Remain usable in environments where common tooling assumptions (e.g., local Docker) do not hold
 
 ## Core Principles
 
