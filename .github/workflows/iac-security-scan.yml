@@ -14,7 +14,7 @@ jobs:
     name: Terraform Lint
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       
       - name: Setup TFLint
         uses: terraform-linters/setup-tflint@v4
@@ -26,7 +26,7 @@ jobs:
     name: Checkov Security Scan
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       
       - name: Run Checkov
         uses: bridgecrewio/checkov-action@v12.2778.0
@@ -40,7 +40,7 @@ jobs:
     name: Trivy IaC Security Scan
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       
       - name: Run Trivy IaC scan
         uses: aquasecurity/trivy-action@0.33.1
