@@ -24,25 +24,25 @@ git clone https://github.com/your-username/governed-iac-reference.git
 cd governed-iac-reference
 ```
 
-2. **Create a Feature Branch**
+1. **Create a Feature Branch**
 
 ```bash
 git checkout -b feat/your-feature-name
 ```
 
-3. **Make Your Changes**
+1. **Make Your Changes**
 
 - Follow the coding standards
 - Run security scans locally
 - Update documentation as needed
 
-4. **Commit with GPG Signing**
+1. **Commit with GPG Signing**
 
 ```bash
 git commit -S -m "type: description"
 ```
 
-5. **Push and Create PR**
+1. **Push and Create PR**
 
 ```bash
 git push origin feat/your-feature-name
@@ -76,9 +76,9 @@ Use conventional commits:
 ### Review Process
 
 1. All PRs require at least one approval
-2. All CI checks must pass
-3. Code must be GPG signed
-4. Branch must be up-to-date with main
+1. All CI checks must pass
+1. Code must be GPG signed
+1. Branch must be up-to-date with main
 
 ## Development Setup
 
