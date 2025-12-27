@@ -15,3 +15,18 @@ All notable changes to this project will be documented in this file.
 - IaC security scan workflows (TFLint, Checkov, Trivy)
 - CODEOWNERS and license
 - Documentation: architecture, infra/README, policies/README stub
+
+## [v0.2.0] - Upcoming
+
+### Planned Enhancements
+
+- Implement CI workflow for plan artifact storage and immutable apply
+- Expand policies/ with OPA (Rego) and custom Checkov rules
+- Add infrastructure examples in infra/modules/ and infra/envs/
+- Document manual applies in CHANGELOG until automated workflow is live
+
+### Known Gaps (v0.1.0)
+
+- No automated apply workflow (manual only)
+- Minimal policy enforcement (directory present, rules pending)
+- infra/envs/ and infra/modules/ are skeletons
