@@ -1,6 +1,7 @@
 # Governed Infrastructure-as-Code Reference System
 
 ## What This Is
+
 This repository is a reference implementation of a governed Infrastructure-as-Code (IaC) system.
 
 It demonstrates how infrastructure changes can be made intentional, auditable, policy-constrained, and explicitly accountable to humans.
@@ -10,6 +11,7 @@ The system is designed around governance and failure containment rather than spe
 This is not a template for rapid experimentation; it is a model for disciplined infrastructure change.
 
 ## What This Is Not
+
 This repository is **not**:
 
 - A drop-in production platform
@@ -19,6 +21,7 @@ This repository is **not**:
 - A replacement for organizational governance or decision-making
 
 ## Why This Exists
+
 Modern Infrastructure-as-Code systems fail less often due to tooling defects and more often due to
 governance collapse: unclear authority, mutable standards, undocumented exceptions, and
 non-reproducible decision paths. As systems scale, these failures become silent, systemic, and
@@ -38,34 +41,30 @@ Specifically, this reference system exists to:
 ## Core Principles
 
 ## Design Constraints (At a Glance)
+
 This system is intentionally constrained. These constraints are not limitations to be removed;
 they are invariants the architecture is designed to hold.
 
 - **No local Docker dependency**  
   All workflows must execute without requiring a local Docker daemon.
-
 - **Deterministic environments**  
   Dev, staging, and prod are structurally identical; differences are data, not topology.
-
 - **Plan-before-apply enforcement**  
   All infrastructure changes require a reviewed, recorded plan prior to application.
-
 - **Policy-as-code required**  
   Security, compliance, and guardrails are enforced via automated policy checks.
-
 - **CI is the control plane**  
   Human interaction is mediated through version control and CI gates, not imperative access.
-
 - **Reversibility over speed**  
   Every change must be designed to be safely rolled back.
-
 - **Explicit non-goals documented**  
   Anything out of scope is named and intentionally excluded.
 
 ## Repository Structure (Guided Tour)
+
 This repository is organized to reflect how governed infrastructure is actually operated.
 
-```
+```text
 repo-root/
 ├── .github/
 │   └── workflows/        # CI gates: linting, planning, policy checks, controlled apply
