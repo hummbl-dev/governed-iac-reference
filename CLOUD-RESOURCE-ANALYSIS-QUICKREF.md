@@ -110,17 +110,20 @@ Test in feature branch before merging.
 ## Checklist
 
 **Before Merge**:
+
 - [ ] Job permissions added
 - [ ] Actions pinned to SHA
 - [ ] Artifacts uploaded
 - [ ] Tested in feature branch
 
 **This Sprint**:
+
 - [ ] TFLint initialization
 - [ ] Caching implemented
 - [ ] Summary job added
 
 **Optional**:
+
 - [ ] SARIF integration
 - [ ] PR notifications
 
