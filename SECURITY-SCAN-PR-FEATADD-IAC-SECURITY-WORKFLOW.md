@@ -2,7 +2,7 @@
 
 ## Executive Summary
 
-Performed comprehensive Terraform security analysis of the PR branch `feat/add-iac-security-workflow`. The analysis included running multiple industry-standard security scanning tools to identify potential vulnerabilities, misconfigurations, and compliance issues.
+Performed comprehensive Terraform security analysis of the PR branch `copilot/featadd-iac-security-workflow` (feat/add-iac-security-workflow). The analysis included running multiple industry-standard security scanning tools to identify potential vulnerabilities, misconfigurations, and compliance issues.
 
 **Overall Status**: ✅ **NO SECURITY ISSUES FOUND**
 
@@ -145,7 +145,7 @@ While no security issues were found, the following enhancements could strengthen
    - Useful if custom rulesets are added in the future
 
 2. **Trivy Version Update** (Low Priority)
-   - Current: v0.33.1 (January 2024)
+   - Current: v0.33.1
    - Consider: Latest stable version for improved detection capabilities
 
 3. **Scan Artifact Storage** (Informational)
