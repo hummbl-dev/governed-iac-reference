@@ -1,0 +1,23 @@
+name: 'Setup GPG Signing'
+description: 'Configure GPG key for signing commits in GitHub Actions'
+author: 'hummbl-dev'
+
+inputs:
+  gpg_private_key:
+    description: 'GPG private key for signing commits'
+    required: true
+  gpg_passphrase:
+    description: 'Passphrase for the GPG private key'
+    required: true
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Import GPG key
+      uses: crazy-max/ghaction-import-gpg@v6
+      with:
+        gpg_private_key: ${{ inputs.gpg_private_key }}
+        passphrase: ${{ inputs.gpg_passphrase }}
+        git_user_signingkey: true
+        git_commit_gpgsign: true
+        git_config_global: true
