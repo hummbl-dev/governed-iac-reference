@@ -111,7 +111,7 @@ jobs:
 
 **Issue**: Security scan results are only displayed in console output and not preserved as artifacts.
 
-**Risk**: 
+**Risk**:
 
 - No historical audit trail of security posture
 - Difficult to track security debt over time
@@ -510,19 +510,19 @@ name: IaC Security Scan
 
 ### Phase 2: High (Within 1 week)
 
-3. Implement scan result artifact storage
-4. Add TFLint initialization step
+1. Implement scan result artifact storage
+2. Add TFLint initialization step
 
 ### Phase 3: Medium (Within 1 month)
 
-5. Add caching for tool downloads
-6. Create security summary job
-7. Implement SARIF upload to GitHub Security
+1. Add caching for tool downloads
+2. Create security summary job
+3. Implement SARIF upload to GitHub Security
 
 ### Phase 4: Low (Nice to have)
 
-8. Add workflow documentation header
-9. Implement PR comment notifications
+1. Add workflow documentation header
+2. Implement PR comment notifications
 
 ---
 
