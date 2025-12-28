@@ -29,12 +29,12 @@ TITLE=$(echo "$PR_INFO" | jq -r '.title')
 BODY=$(echo "$PR_INFO" | jq -r '.body')
 
 # Trigger Copilot agent sessions
+
 for TASK_PROMPT in "${AGENT_TASKS[@]}"; do
   echo "Triggering Copilot agent: $TASK_PROMPT"
   gh agent-task create \
     --repo "$OWNER/$REPO" \
-    --prompt "$TASK_PROMPT\n\nPR Title: $TITLE\nPR Branch: $BRANCH\nPR Body: $BODY" \
-    --pr "$PR_NUMBER"
+    "$TASK_PROMPT\n\nPR Title: $TITLE\nPR Branch: $BRANCH\nPR Body: $BODY"
   echo "---"
 done
 
