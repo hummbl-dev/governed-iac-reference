@@ -326,23 +326,23 @@ The workflow is complete for v1.0 requirements. The following are **intentionall
 
 ### 7.2 Priority 2 (Documentation)
 
-2. **Add Workflow Documentation**
+1. **Add Workflow Documentation**
    - Add inline comments explaining tool configurations
    - Document why Markdownlint is in a separate workflow
    - Include references to GOVERNANCE.md requirements
 
-3. **Update ARCHITECTURE.md**
+2. **Update ARCHITECTURE.md**
    - Confirm Markdownlint separation is intentional
    - Document workflow trigger strategy (PR + push)
 
 ### 7.3 Priority 3 (Future Enhancements)
 
-4. **Add Workflow Job Dependencies (Future)**
+1. **Add Workflow Job Dependencies (Future)**
    - Consider adding a final "status" job that depends on all checks
    - Makes it easier to configure branch protection rules
    - Reference: GitHub's "require status checks" feature
 
-5. **Add SARIF Output for Security Tools (Future)**
+2. **Add SARIF Output for Security Tools (Future)**
    - Integrate with GitHub Security tab
    - Provides unified vulnerability dashboard
    - Planned for v0.2.0+
