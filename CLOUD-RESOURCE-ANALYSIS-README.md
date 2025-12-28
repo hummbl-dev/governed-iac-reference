@@ -34,16 +34,19 @@ Start with the document that matches your role:
 ## 🔴 Critical Issues Found
 
 ### 1. Missing Job-Level Permissions
+
 - **Risk**: Privilege escalation vulnerability
 - **Impact**: HIGH
 - **Fix Time**: 5 minutes
 
-### 2. Unpinned GitHub Actions  
+### 2. Unpinned GitHub Actions
+
 - **Risk**: Supply chain attack vector
 - **Impact**: HIGH
 - **Fix Time**: 15 minutes
 
 ### 3. No Audit Trail
+
 - **Risk**: Compliance failure
 - **Impact**: HIGH
 - **Fix Time**: 30 minutes
@@ -72,6 +75,7 @@ Start with the document that matches your role:
 ## 🎯 Recommended Action
 
 ### Option 1: Quick Fix (Recommended)
+
 1. Copy `CLOUD-RESOURCE-ANALYSIS-IMPROVED.yml` to `.github/workflows/iac-security-scan.yml`
 2. Test in feature branch
 3. Merge once validated
@@ -79,6 +83,7 @@ Start with the document that matches your role:
 **Time**: 1-2 hours (including testing)
 
 ### Option 2: Manual Implementation
+
 1. Follow [Quick Reference](CLOUD-RESOURCE-ANALYSIS-QUICKREF.md)
 2. Implement Phase 1 critical fixes
 3. Test and validate
@@ -89,6 +94,7 @@ Start with the document that matches your role:
 ## 📋 Implementation Checklist
 
 ### Before Merge (Critical)
+
 - [ ] Add job-level permissions to all jobs
 - [ ] Pin all actions to commit SHAs
 - [ ] Implement scan result artifact storage
@@ -96,12 +102,14 @@ Start with the document that matches your role:
 - [ ] Verify artifacts are created
 
 ### This Sprint (High Priority)
+
 - [ ] Add TFLint initialization step
 - [ ] Implement caching for tools
 - [ ] Add security summary job
 - [ ] Verify SARIF upload works
 
 ### Optional (Nice to Have)
+
 - [ ] Add workflow documentation header
 - [ ] Implement PR comment notifications
 - [ ] Set up custom alerting
@@ -129,6 +137,7 @@ git push origin fix/iac-workflow-security
 ## 🔍 What Was Analyzed
 
 ### In Scope
+
 - ✅ GitHub Actions workflow configuration
 - ✅ Security tool setup and configuration
 - ✅ Permission model and access control
@@ -139,6 +148,7 @@ git push origin fix/iac-workflow-security
 - ✅ Integration with GitHub Security features
 
 ### Out of Scope
+
 - ❌ Actual Terraform infrastructure code (repository contains none yet)
 - ❌ Cloud resource configurations (none exist to analyze)
 - ❌ Policy content (policies directory is placeholder)
