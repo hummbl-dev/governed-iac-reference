@@ -11,6 +11,7 @@
 This analysis consists of four complementary documents:
 
 ### 1. 📋 Executive Summary (Start Here)
+
 **File**: `CLOUD-RESOURCE-ANALYSIS-EXECUTIVE-SUMMARY.md`
 
 **Audience**: Leadership, security team, project managers
@@ -53,6 +54,7 @@ This analysis consists of four complementary documents:
 **Audience**: Developers implementing fixes
 
 **Contents**:
+
 - Critical fixes checklist
 - Copy-paste code snippets
 - Time estimates for each fix
