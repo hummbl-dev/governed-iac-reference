@@ -16,6 +16,11 @@ All notable changes to this project will be documented in this file.
 - CODEOWNERS and license
 - Documentation: architecture, infra/README, policies/README stub
 - Comprehensive repository audit with governance gap analysis and recommendations (see README-AUDIT.md and docs/AUDIT-2025-12-27-SUMMARY.md)
+- IaC security workflow compliance review (IAC-SECURITY-WORKFLOW-COMPLIANCE-REVIEW.md)
+
+### Changed
+
+- Enhanced IaC security scan workflow with inline documentation and governance references
 
 ## [v0.2.0] - Upcoming
 
