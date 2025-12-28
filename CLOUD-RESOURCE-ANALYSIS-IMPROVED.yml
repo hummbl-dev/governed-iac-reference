@@ -1,0 +1,300 @@
+# IaC Security Scan Workflow - IMPROVED VERSION
+# 
+# Purpose: Validates Infrastructure-as-Code for security misconfigurations,
+#          compliance violations, and Terraform best practices.
+#
+# Triggers: Pull requests and pushes to main branch
+#
+# Tools:
+#   - TFLint: Terraform linting and best practices
+#   - Checkov: Security and compliance policy checks  
+#   - Trivy: Misconfiguration detection
+#
+# Security: All jobs run with explicit read-only permissions
+#          Actions pinned to commit SHAs for supply chain security
+#
+# Compliance: Scan results archived for audit trail (90-day retention)
+#             SARIF results uploaded to GitHub Security tab
+#
+# Maintenance: Action versions managed by Dependabot
+#
+name: IaC Security Scan
+
+on:
+  pull_request:
+    branches: [ main ]
+  push:
+    branches: [ main ]
+
+# Global minimum permissions (can be overridden per job)
+permissions:
+  contents: read
+
+jobs:
+  terraform-lint:
+    name: Terraform Lint
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout code
+        # actions/checkout@v6.0.0
+        uses: actions/checkout@1e31de5234b9f8995739874a8ce0492dc87873e2
+      
+      - name: Cache TFLint plugins
+        # actions/cache@v4.2.0
+        uses: actions/cache@1bd1e32a3bdc45362d1e726936510720a7c30a57
+        with:
+          path: ~/.tflint.d/plugins
+          key: tflint-${{ hashFiles('.tflint.hcl') }}
+          restore-keys: |
+            tflint-
+      
+      - name: Setup TFLint
+        # terraform-linters/setup-tflint@v6.0.0
+        uses: terraform-linters/setup-tflint@ba6bb2989f94daf58a4cc241d511bf2c3893c57e
+      
+      - name: Show TFLint version
+        run: tflint --version
+      
+      - name: Initialize TFLint
+        run: tflint --init
+      
+      - name: Run TFLint
+        run: tflint --recursive --format compact
+      
+      - name: Upload TFLint results as artifact
+        if: always()
+        # actions/upload-artifact@v4.5.0
+        uses: actions/upload-artifact@b4b15b8c7c6ac21ea08fcf65892d2ee8f75cf882
+        with:
+          name: tflint-results
+          path: |
+            tflint-*.txt
+          retention-days: 90
+          if-no-files-found: ignore
+
+  checkov-scan:
+    name: Checkov Security Scan
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      security-events: write  # Required for SARIF upload
+    steps:
+      - name: Checkout code
+        # actions/checkout@v6.0.0
+        uses: actions/checkout@1e31de5234b9f8995739874a8ce0492dc87873e2
+      
+      - name: Run Checkov (JSON output)
+        # bridgecrewio/checkov-action@v12.3075.0
+        uses: bridgecrewio/checkov-action@985ac4b1568b585cff39e0e46ce6a2b5f8b6f5e8
+        with:
+          directory: ./
+          framework: terraform
+          soft_fail: false
+          output_format: json
+          output_file_path: checkov-results.json
+      
+      - name: Upload Checkov JSON results
+        if: always()
+        # actions/upload-artifact@v4.5.0
+        uses: actions/upload-artifact@b4b15b8c7c6ac21ea08fcf65892d2ee8f75cf882
+        with:
+          name: checkov-json-results
+          path: checkov-results.json
+          retention-days: 90
+      
+      - name: Run Checkov (SARIF output)
+        if: always()
+        # bridgecrewio/checkov-action@v12.3075.0
+        uses: bridgecrewio/checkov-action@985ac4b1568b585cff39e0e46ce6a2b5f8b6f5e8
+        with:
+          directory: ./
+          framework: terraform
+          soft_fail: true  # Don't fail for SARIF generation
+          output_format: sarif
+          output_file_path: checkov-results.sarif
+      
+      - name: Upload Checkov SARIF to GitHub Security
+        if: always()
+        # github/codeql-action/upload-sarif@v3
+        uses: github/codeql-action/upload-sarif@6db8d6351fd0be61f9ed8ebd12ccd35dcec51fea
+        with:
+          sarif_file: checkov-results.sarif
+          category: checkov-iac
+
+  trivy-scan:
+    name: Trivy IaC Security Scan
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      security-events: write  # Required for SARIF upload
+    steps:
+      - name: Checkout code
+        # actions/checkout@v6.0.0
+        uses: actions/checkout@1e31de5234b9f8995739874a8ce0492dc87873e2
+      
+      - name: Cache Trivy database
+        # actions/cache@v4.2.0
+        uses: actions/cache@1bd1e32a3bdc45362d1e726936510720a7c30a57
+        with:
+          path: ~/.cache/trivy
+          key: trivy-db-${{ github.run_id }}
+          restore-keys: |
+            trivy-db-
+      
+      - name: Run Trivy IaC scan (JSON output)
+        # aquasecurity/trivy-action@0.33.1
+        uses: aquasecurity/trivy-action@6e7b7d1fd3e4fef0c5fa8cce1229c54b2c9bd0d8
+        with:
+          scan-type: 'config'
+          scanners: 'misconfig'
+          scan-ref: '.'
+          exit-code: '1'
+          format: 'json'
+          output: 'trivy-results.json'
+          hide-progress: true
+      
+      - name: Upload Trivy JSON results
+        if: always()
+        # actions/upload-artifact@v4.5.0
+        uses: actions/upload-artifact@b4b15b8c7c6ac21ea08fcf65892d2ee8f75cf882
+        with:
+          name: trivy-json-results
+          path: trivy-results.json
+          retention-days: 90
+      
+      - name: Run Trivy IaC scan (SARIF output)
+        if: always()
+        # aquasecurity/trivy-action@0.33.1
+        uses: aquasecurity/trivy-action@6e7b7d1fd3e4fef0c5fa8cce1229c54b2c9bd0d8
+        with:
+          scan-type: 'config'
+          scanners: 'misconfig'
+          scan-ref: '.'
+          exit-code: '0'  # Don't fail for SARIF generation
+          format: 'sarif'
+          output: 'trivy-results.sarif'
+          hide-progress: true
+      
+      - name: Upload Trivy SARIF to GitHub Security
+        if: always()
+        # github/codeql-action/upload-sarif@v3
+        uses: github/codeql-action/upload-sarif@6db8d6351fd0be61f9ed8ebd12ccd35dcec51fea
+        with:
+          sarif_file: trivy-results.sarif
+          category: trivy-iac
+
+  security-summary:
+    name: Security Scan Summary
+    runs-on: ubuntu-latest
+    needs: [terraform-lint, checkov-scan, trivy-scan]
+    permissions:
+      contents: read
+      pull-requests: write  # Required to comment on PRs
+    if: always()
+    steps:
+      - name: Check scan results
+        id: check-results
+        run: |
+          echo "Checking security scan results..."
+          
+          # Initialize status variables
+          TFLINT_STATUS="${{ needs.terraform-lint.result }}"
+          CHECKOV_STATUS="${{ needs.checkov-scan.result }}"
+          TRIVY_STATUS="${{ needs.trivy-scan.result }}"
+          
+          echo "TFLint: $TFLINT_STATUS"
+          echo "Checkov: $CHECKOV_STATUS"
+          echo "Trivy: $TRIVY_STATUS"
+          
+          # Check for failures
+          FAILED=false
+          if [ "$TFLINT_STATUS" != "success" ]; then
+            echo "❌ TFLint check failed"
+            FAILED=true
+          else
+            echo "✅ TFLint check passed"
+          fi
+          
+          if [ "$CHECKOV_STATUS" != "success" ]; then
+            echo "❌ Checkov security scan failed"
+            FAILED=true
+          else
+            echo "✅ Checkov security scan passed"
+          fi
+          
+          if [ "$TRIVY_STATUS" != "success" ]; then
+            echo "❌ Trivy security scan failed"
+            FAILED=true
+          else
+            echo "✅ Trivy security scan passed"
+          fi
+          
+          # Set output for PR comment
+          if [ "$FAILED" = true ]; then
+            echo "overall_status=failure" >> $GITHUB_OUTPUT
+            echo "summary_icon=❌" >> $GITHUB_OUTPUT
+            echo "summary_text=Some IaC security checks failed. Please review the scan results." >> $GITHUB_OUTPUT
+            exit 1
+          else
+            echo "overall_status=success" >> $GITHUB_OUTPUT
+            echo "summary_icon=✅" >> $GITHUB_OUTPUT
+            echo "summary_text=All IaC security scans passed successfully!" >> $GITHUB_OUTPUT
+          fi
+      
+      - name: Post results to PR
+        if: github.event_name == 'pull_request'
+        # actions/github-script@v7.0.1
+        uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea
+        with:
+          script: |
+            const { data: comments } = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+            });
+            
+            // Find existing bot comment
+            const botComment = comments.find(comment => 
+              comment.user.type === 'Bot' && 
+              comment.body.includes('IaC Security Scan Summary')
+            );
+            
+            const output = `## ${{ steps.check-results.outputs.summary_icon }} IaC Security Scan Summary
+            
+            **Status**: ${{ steps.check-results.outputs.overall_status }}
+            
+            | Check | Status |
+            |-------|--------|
+            | TFLint | ${{ needs.terraform-lint.result == 'success' && '✅ Passed' || '❌ Failed' }} |
+            | Checkov | ${{ needs.checkov-scan.result == 'success' && '✅ Passed' || '❌ Failed' }} |
+            | Trivy | ${{ needs.trivy-scan.result == 'success' && '✅ Passed' || '❌ Failed' }} |
+            
+            ${{ steps.check-results.outputs.summary_text }}
+            
+            ---
+            
+            📊 **Scan Artifacts**: View detailed results in the workflow run artifacts
+            🔒 **Security Tab**: Check the [Security tab](https://github.com/${{ github.repository }}/security/code-scanning) for detailed findings
+            
+            _Last updated: ${{ github.event.pull_request.updated_at }}_
+            `;
+            
+            if (botComment) {
+              // Update existing comment
+              github.rest.issues.updateComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: botComment.id,
+                body: output
+              });
+            } else {
+              // Create new comment
+              github.rest.issues.createComment({
+                issue_number: context.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: output
+              });
+            }
