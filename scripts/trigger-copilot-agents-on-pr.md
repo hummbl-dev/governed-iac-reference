@@ -33,6 +33,32 @@ This script triggers multiple GitHub Copilot agent sessions for the governed-iac
 ./scripts/trigger-copilot-agents-on-pr.sh 42
 ```
 
+## Monitoring Agent Sessions
+
+You can monitor Copilot agent sessions in several ways:
+
+### 1. GitHub Web UI
+
+- Go to your repository on GitHub.
+- Click the **Agents** tab (or **Agent Sessions** in the PR view).
+- View live logs, status, and results for each session.
+
+### 2. GitHub CLI
+
+Use the following commands to list and monitor sessions from your terminal:
+
+```sh
+# List all agent sessions for this repo
+gh agent-task list --repo hummbl-dev/governed-iac-reference
+
+# View logs for a specific session (replace <session-id> with the actual ID)
+gh agent-task view <session-id> --repo hummbl-dev/governed-iac-reference --log --follow
+```
+
+### 3. Session Links
+
+The script outputs direct URLs to each agent session. Open these links in your browser to view real-time progress and results.
+
 ## Customization
 
 - Edit the `AGENT_TASKS` array in the script to add or change agent prompts.
