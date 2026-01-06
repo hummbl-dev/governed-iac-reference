@@ -20,7 +20,7 @@ This is **not** a production system or rapid prototyping environment. It's a ref
 
 ## Repository Structure
 
-```
+```text
 .github/workflows/     # CI gates: ALL applies must pass security scans first
   ├── iac-security-scan.yml    # TFLint, Checkov, Trivy (runs on PR + push to main)
   └── markdownlint.yml         # Documentation quality gate
@@ -42,13 +42,16 @@ docs/                 # Deep architecture context and decision records
 ## Critical Workflows
 
 ### Security Scanning (REQUIRED for all PRs)
+
 All PRs must pass these scans before merge:
+
 - **TFLint**: Terraform linting and best practices
 - **Checkov**: Security misconfiguration detection (currently built-in rules only)
 - **Trivy**: IaC vulnerability scanning
 - **Markdownlint**: Documentation hygiene
 
 Run locally via VS Code tasks (Cmd+Shift+P → "Tasks: Run Task"):
+
 ```bash
 # Individual scans
 security:tflint
@@ -63,6 +66,7 @@ security:all
 **Note:** There is no `task` command or Taskfile/Makefile. Use VS Code tasks from `.vscode/tasks.json`.
 
 ### Apply Workflow (v0.1.0 - Manual Only)
+
 - **No automated applies exist yet** — This is intentional for v0.1.0
 - CI runs validation only (lint, security, policy checks)
 - Manual applies must be documented in [CHANGELOG.md](../CHANGELOG.md)
@@ -70,7 +74,9 @@ security:all
 - See [docs/APPLY_WORKFLOW.md](../docs/APPLY_WORKFLOW.md) for roadmap
 
 ### Commit Conventions
+
 Use conventional commits with GPG signing:
+
 - `feat:` New features
 - `fix:` Bug fixes
 - `docs:` Documentation only
@@ -98,6 +104,7 @@ Use conventional commits with GPG signing:
 The next version adds real, enforceable policy-as-code:
 
 **Core Policies (5-7 deny-by-default rules):**
+
 - No public S3 buckets
 - Required resource tags (owner, environment, project)
 - IAM least privilege enforcement
@@ -105,17 +112,20 @@ The next version adds real, enforceable policy-as-code:
 - Encryption at rest requirements
 
 **Implementation:**
+
 - OPA/Rego or custom Checkov policies in `policies/`
 - Policy test harness with CI integration
 - Clear failure messages explaining violations
 - Policies block merges (not advisory warnings)
 
 **Scripts:**
+
 - `scripts/promote-env.sh` — Safe environment promotion workflow
 - `scripts/test-policies.sh` — Local policy validation
 - `scripts/detect-drift.sh` — State drift detection helper
 
 **Documentation:**
+
 - GOVERNANCE.md — Authority model, review process, policy exceptions
 - docs/FAILURE_MODES.md — External validation findings
 - docs/ADOPTION_STRATEGY.md — Onboarding guidance
@@ -124,7 +134,8 @@ The next version adds real, enforceable policy-as-code:
 
 ## When Suggesting Changes
 
-### DO:
+### DO
+
 - Maintain separation between definition (modules), validation (policies), and execution (CI)
 - Document all design decisions with rationale
 - Update [ARCHITECTURE.md](../ARCHITECTURE.md) for structural changes
@@ -132,7 +143,8 @@ The next version adds real, enforceable policy-as-code:
 - Run security scans before suggesting PR merge
 - Reference the constraint model when proposing features
 
-### DO NOT:
+### DO NOT
+
 - Suggest local Docker usage
 - Propose local `terraform apply` workflows
 - Add auto-remediation of production drift
@@ -143,6 +155,7 @@ The next version adds real, enforceable policy-as-code:
 ## Key Documentation
 
 Read these FIRST before suggesting major changes:
+
 - [ARCHITECTURE.md](../ARCHITECTURE.md) — Canonical system design, invariants, and philosophy
 - [README.md](../README.md) — User-facing overview and constraints
 - [CONTRIBUTING.md](../CONTRIBUTING.md) — Contribution standards and PR process
@@ -151,6 +164,7 @@ Read these FIRST before suggesting major changes:
 - [docs/30-DAY-EXECUTION-PLAN-v0.2.0.md](../docs/30-DAY-EXECUTION-PLAN-v0.2.0.md) — Development roadmap
 
 **Missing but planned:**
+
 - GOVERNANCE.md — Should define authority boundaries, review process, and policy exception handling
 - docs/FAILURE_MODES.md — Will document friction points from external validation (v0.2.0)
 - docs/ADOPTION_STRATEGY.md — Will provide onboarding guidance (v0.2.0)
@@ -175,6 +189,7 @@ Read these FIRST before suggesting major changes:
 ## When Asked to Add Features
 
 Check against explicit non-goals in [ARCHITECTURE.md](../ARCHITECTURE.md#9-explicit-non-goals-v10):
+
 - Local Docker usage
 - Auto-remediate drift
 - Application runtime management
@@ -185,6 +200,7 @@ If requested feature conflicts with non-goals, explain the architectural rationa
 
 **v0.2.0 Priority Features:**
 Focus on policy-as-code only. Defer everything else until external validation is complete:
+
 - ✅ Implement 5-7 deny-by-default policies
 - ✅ Build policy test harness
 - ✅ Integrate policies into CI (blocking)
