@@ -7,17 +7,17 @@ on:
     branches: [main]
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   markdownlint:
     runs-on: ubuntu-latest
     name: Markdown Lint
-    
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v6
-      
+
       - name: Run markdownlint
         uses: DavidAnson/markdownlint-cli2-action@v22
         with:

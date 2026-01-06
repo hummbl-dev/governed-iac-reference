@@ -1,3 +1,17 @@
+# IaC Security Scan Workflow
+# 
+# Purpose: Enforces security and compliance checks for Infrastructure-as-Code changes
+# Governance: Required per GOVERNANCE.md §6.2 (Change Validation)
+# Architecture: Implements ARCHITECTURE.md §15 (CI/CD Pipeline Detail)
+#
+# Required Checks:
+# - TFLint: Terraform linting and best practices
+# - Checkov: Security misconfiguration scanning
+# - Trivy: Vulnerability and misconfiguration detection
+# 
+# All checks must pass before merge. No soft-fail mode permitted.
+# Reference: GOVERNANCE.md for approval requirements and exception handling.
+
 name: IaC Security Scan
 
 on:
@@ -6,10 +20,13 @@ on:
   push:
     branches: [ main ]
 
+# Principle of Least Privilege: Read-only access sufficient for scanning
 permissions:
   contents: read
 
 jobs:
+  # Job 1: Terraform Linting
+  # Validates Terraform syntax, best practices, and common errors
   terraform-lint:
     name: Terraform Lint
     runs-on: ubuntu-latest
@@ -22,6 +39,8 @@ jobs:
       - name: Run TFLint
         run: tflint --recursive
 
+  # Job 2: Security Misconfiguration Scanning
+  # Scans IaC for security misconfigurations and compliance violations
   checkov-scan:
     name: Checkov Security Scan
     runs-on: ubuntu-latest
@@ -29,13 +48,15 @@ jobs:
       - uses: actions/checkout@v6
       
       - name: Run Checkov
-        uses: bridgecrewio/checkov-action@v12.3075.0
+        uses: bridgecrewio/checkov-action@v12.3077.0
         with:
           directory: ./
           framework: terraform
-          soft_fail: false
+          soft_fail: false  # Hard-fail on violations (required by governance)
           output_format: cli
 
+  # Job 3: Vulnerability and Configuration Scanning
+  # Scans for vulnerabilities and misconfigurations in IaC
   trivy-scan:
     name: Trivy IaC Security Scan
     runs-on: ubuntu-latest
@@ -48,7 +69,7 @@ jobs:
           scan-type: 'config'
           scanners: 'misconfig'
           scan-ref: '.'
-          exit-code: '1'
+          exit-code: '1'  # Fail on any findings (required by governance)
           format: 'table'
           hide-progress: true
 
